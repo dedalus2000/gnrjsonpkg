@@ -4,9 +4,9 @@ from gnr.web.gnrwebpage import GnrUserNotAllowed,GnrBasicAuthenticationError
 from json import loads as json_loads, dumps as json_dumps
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
-from json_utils import JsonError
+from gnrpkg.gnrjsonpkg.json_utils  import JsonError
 from decimal import Decimal
-from  webob import exc
+from webob import exc
 
 
 def default(obj):
@@ -17,7 +17,7 @@ def default(obj):
 
 class JsonRpc(BaseComponent):
     skip_connection = True
-    _debug = Debug
+    _debug = False
 
     def common_headers(self):
         return None
@@ -80,12 +80,10 @@ class JsonRpc(BaseComponent):
         except JsonError as err:
             if self._debug:
                 raise
-            #print("ERR2", err, file=sys.stderr)
             return err
         except Exception as err:
             if self._debug:
                 raise
-            #print("ERR2", err, file=sys.stderr)
             return JsonError(code=500, msg=err, headers=common_headers)
 
     @public_method

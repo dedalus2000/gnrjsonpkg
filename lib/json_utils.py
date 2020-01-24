@@ -3,9 +3,6 @@ from builtins import str
 from webob.response import Response
 import json
 import sys
-from passwords import webbook
-pbsite_secret = webbook.pbsite_secret
-
 
 http_codes = {    
     100: "Continue",
@@ -53,19 +50,15 @@ http_codes = {
  
 class JsonError(Response, Exception):
     def __init__(self, code, msg='', headers=None):
-        json = {"code": str(code), "error": http_codes[code] , "msg":str(msg)}
+        json={"code": str(code), "error": http_codes[code] , "msg":str(msg)}
         super(JsonError, self).__init__(
             json=json, 
             status=code,
             charset='UTF-8',
             content_type = 'application/json'
         )
-        
+       
         print("[%s] %s" % (code, json), file=sys.stderr)
-
-        #self.add_header('Access-Control-Allow-Origin', '*')
         if headers:
             for kk,vv in headers.items():
                 self.headers[kk] = vv
-        # self.headers['Access-Control-Allow-Origin'] = '*'
-        # self.headers["Access-Control-Allow-Headers"] = "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
