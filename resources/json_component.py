@@ -17,7 +17,7 @@ def default(obj):
 
 class JsonRpc(BaseComponent):
     skip_connection = True
-    _debug = True
+    _debug = Debug
 
     def common_headers(self):
         return None
@@ -83,7 +83,6 @@ class JsonRpc(BaseComponent):
             #print("ERR2", err, file=sys.stderr)
             return err
         except Exception as err:
-            print (9)
             if self._debug:
                 raise
             #print("ERR2", err, file=sys.stderr)

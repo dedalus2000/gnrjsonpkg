@@ -53,7 +53,7 @@ http_codes = {
  
 class JsonError(Response, Exception):
     def __init__(self, code, msg='', headers=None):
-        json={"code": str(code), "error": http_codes[code] , "msg":str(msg)}
+        json = {"code": str(code), "error": http_codes[code] , "msg":str(msg)}
         super(JsonError, self).__init__(
             json=json, 
             status=code,
